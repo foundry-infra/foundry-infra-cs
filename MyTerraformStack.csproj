@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp5.0</TargetFramework>
+    <UserSecretsId>6dddbd94-0abf-49ea-ac0d-f25b883acdcf</UserSecretsId>
+    <LangVersion>9</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hashicorp.Cdktf" Version="0.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include=".gen\google\google.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include=".gen\digitalocean\digitalocean.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);node_modules\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+
+</Project>

@@ -1,0 +1,15 @@
+{
+  "name": "foundry-infra-cs",
+  "version": "0.0.0",
+  "description": "This repo uses [Terraform CDK][terraform-cdk] to generate DigitalOcean resources for Foundry servers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "cdktf-cli": "^0.1.0"
+  }
+}
