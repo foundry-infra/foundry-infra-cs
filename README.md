@@ -8,6 +8,11 @@ This repo uses [Terraform CDK][terraform-cdk] to generate DigitalOcean resources
 
 This repository contains a CLI project that can be executed to generate Terraform files for use by the cdk-cli. The cdk-cli can deploy these files as real cloud infrastructure. This project will be a re-write of [foundry-infra Terragrunt project][foundry-infra] with a focus on improving modularity and simplicity.
 
+# Pre-Requisites
+
+- dotnet cli with dotnet 5
+- node and npm
+
 # Setup
 
 Run `npm install` to install the cdktf tools.
@@ -22,9 +27,18 @@ Or run the diff deploy commands with `npx cdktf diff` or `npx cdktf deploy`.
 
 The non-sensitive configuration is under the `"Config"` key in `appsettings.json`. Some data is sensitive, and must be made available in some other form e.g. dotnet user-secrets. The required variables are:
 
-- Config:DigitalOceanToken
-- Config:DigitalOceanSpacesSecretKey
-- Config:DigitalOceanSpacesAccessId
+- `Config:Provider:DigitalOceanToken`
+- `Config:Provider:DigitalOceanSpacesSecretKey`
+- `Config:Provider:DigitalOceanSpacesAccessId`
+
+### `dotnet` Development Secrets
+
+To store secrets with `dotnet user-secrets`:
+
+1. `dotnet user-secrets init`
+2. `dotnet user-secrets set "Config:Provider:DigitalOceanToken" "fjsdlkfjlksdfjlksdjflksdj..."`
+
+After secrets are set, be sure to run the application with the environment variable: `DOTNET_ENVIRONMENT=Development`.
 
 ## cdktf cli
 
