@@ -1,24 +1,30 @@
 using Constructs;
 using Hashicorp.Cdktf;
+using Microsoft.Extensions.Options;
 
 namespace MyTerraformStack
 {
     internal class FoundryInfraTerraformStack : TerraformStack
     {
-        public FoundryInfraTerraformStack(Construct scope, models.TerraformStackId stackId, models.ProviderConfig providerConfig, models.VpcConfig vpcConfig) : base(scope, stackId.Id)
+        public FoundryInfraTerraformStack(Construct scope, 
+            models.TerraformStackId stackId, 
+            IOptions<models.ProviderOptions> providerOptions, 
+            IOptions<models.VpcOptions> vpcOptions
+        ) : base(scope, stackId.Id)
         {
             // define resources here
-            var digitaloceanProvider = new digitalocean.DigitaloceanProvider(this, "digitalocean", new digitalocean.DigitaloceanProviderConfig
+            var digitaloceanProvider = new digitalocean.DigitaloceanProvider(this, "digitalocean", 
+                new digitalocean.DigitaloceanProviderConfig
             {
-                Token = providerConfig.DigitalOceanToken,
-                SpacesAccessId = providerConfig.DigitalOceanSpacesAccessId,
-                SpacesSecretKey = providerConfig.DigitalOceanSpacesSecretKey,
+                Token = providerOptions.Value.DigitalOceanToken,
+                SpacesAccessId = providerOptions.Value.DigitalOceanSpacesAccessId,
+                SpacesSecretKey = providerOptions.Value.DigitalOceanSpacesSecretKey,
             });
             
             var vpc = new digitalocean.Vpc(this, "vpc", new digitalocean.VpcConfig
             {
-                Name = vpcConfig.Name,
-                Region = vpcConfig.Region,
+                Name = vpcOptions.Value.Name,
+                Region = vpcOptions.Value.Region,
             });
         }
     }

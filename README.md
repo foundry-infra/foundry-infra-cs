@@ -4,6 +4,10 @@ This repo uses [Terraform CDK][terraform-cdk] to generate DigitalOcean resources
 
 [terraform-cdk]: https://github.com/hashicorp/terraform-cdk
 
+# Purpose
+
+This repository contains a CLI project that can be executed to generate Terraform files for use by the cdk-cli. The cdk-cli can deploy these files as real cloud infrastructure. This project will be a re-write of [foundry-infra Terragrunt project][foundry-infra] with a focus on improving modularity and simplicity.
+
 # Setup
 
 Run `npm install` to install the cdktf tools.
@@ -30,4 +34,10 @@ If you already have `cdktf-cli` installed globally, you may omit the `npx` parts
 
 Until [this issue][cdktf-get-bug] is resolved, run `cdktf get` with admin privileges. 
 
+# Internals
+
+This repository holds a single CLI project. It uses [Generic Host][generic-host] to setup logging, service injection, and configuration. A single ConsoleHostedService is spun off that executes the CDK synthesis operations and then shuts-down the generic host.
+
 [cdktf-get-bug]: https://github.com/hashicorp/terraform-cdk/issues/501
+[foundry-infra]: https://github.com/foundry-infra/foundry-infra
+[generic-host]: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host

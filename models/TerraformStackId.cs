@@ -1,7 +1,10 @@
-﻿namespace MyTerraformStack.models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MyTerraformStack.models
 {
     public class TerraformStackId
     {
-        public string Id { get; set; } = "";
+        [Required(ErrorMessage = "Id is required for TerraformStackId")]
+        public string Id { get; set; } = default!;
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Constructs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,17 +14,31 @@ namespace MyTerraformStack
             await Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    var he = hostContext.HostingEnvironment;
+                    var isdev = hostContext.HostingEnvironment.IsDevelopment();
+                    
                     // The root configuration to be consumed by models
-                    var configuration = hostContext.Configuration; 
-                    services.Configure<FoundryInfraOptions>(configuration.GetSection(FoundryInfraOptions.Name));
-                    // The configuration models  will consume the foundry infra options
-                    services.AddSingleton(new models.TerraformStackId { Id = "my-terraform-stack-with-config"});
-                    services.AddSingleton<models.ProviderConfig>();
-                    services.AddSingleton<models.VpcConfig>();
-                    // The stack will consume all models
+                    var configuration = hostContext.Configuration;
+                    
+                    // Add the option configuration and exercise validation on each. Not very DRY.
+                    services.AddOptions<models.ProviderOptions>()
+                        .Bind(configuration.GetSection(models.ProviderOptions.SectionName))
+                        .ValidateDataAnnotations();
+                    services.AddOptions<models.VpcOptions>()
+                        .Bind(configuration.GetSection(models.VpcOptions.SectionName))
+                        .ValidateDataAnnotations();
+                    
+                    // This configuration is for cdktf itself and set in the TerraformStack object.
+                    services.AddSingleton(new models.TerraformStackId { Id = "my-terraform-stack-with-config" });
+                    
+                    // Use a concrete implementation for TerraformStack with all the terraform goodness
                     services.AddSingleton<TerraformStack, FoundryInfraTerraformStack>();
-                    services.AddSingleton(new App());
-                    services.AddSingleton<Construct>((s) => s.GetService<App>() ?? throw new Exception($"Unable to find service {nameof(App)}."));
+                    
+                    // HACK: I need the App and App as the base class, Construct, so I register it twice.
+                    var app = new App();
+                    services.AddSingleton(app);
+                    services.AddSingleton<Construct>(app);
+                    
                     // the console service that executes app.synth
                     services.AddHostedService<ConsoleHostedService>();
 
