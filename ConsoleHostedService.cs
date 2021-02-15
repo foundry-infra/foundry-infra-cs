@@ -5,7 +5,7 @@ using Hashicorp.Cdktf;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace MyTerraformStack
+namespace FoundryInfra
 {
     internal sealed class ConsoleHostedService : IHostedService
     {

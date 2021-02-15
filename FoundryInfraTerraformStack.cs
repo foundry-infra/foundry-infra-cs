@@ -2,7 +2,7 @@ using Constructs;
 using Hashicorp.Cdktf;
 using Microsoft.Extensions.Options;
 
-namespace MyTerraformStack
+namespace FoundryInfra
 {
     internal class FoundryInfraTerraformStack : TerraformStack
     {

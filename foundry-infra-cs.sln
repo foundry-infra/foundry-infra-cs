@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTerraformStack", "MyTerraformStack.csproj", "{2EF6815C-D9B7-4F67-8EF2-CC31BDD5D9E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoundryInfra", "FoundryInfra.csproj", "{2EF6815C-D9B7-4F67-8EF2-CC31BDD5D9E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

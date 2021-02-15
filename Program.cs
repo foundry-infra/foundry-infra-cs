@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Hashicorp.Cdktf;
 
-namespace MyTerraformStack
+namespace FoundryInfra
 { 
     internal static class Program
     {

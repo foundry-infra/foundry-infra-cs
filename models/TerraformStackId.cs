@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyTerraformStack.models
+namespace FoundryInfra.models
 {
     public class TerraformStackId
     {
